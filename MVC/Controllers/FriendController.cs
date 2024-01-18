@@ -28,9 +28,17 @@ namespace MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Friend obj)
         {
-            _db.friends.Add(obj);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            if(obj.FriendName == obj.Place)
+            {
+                ModelState.AddModelError("FriendName", "The Place cannot exactly match the Name");
+            }
+            if (ModelState.IsValid)
+            {
+                _db.friends.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
         }
     }
 }

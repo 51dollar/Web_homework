@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace MVC.Models
 {
@@ -7,7 +8,9 @@ namespace MVC.Models
         [Key]
         public int FriendID { get; set; }
         [Required]
+        [DisplayName("Name")]
         public string? FriendName { get; set; }
-        public string? Place { get; set; }
+		[Required]
+		public string? Place { get; set; }
     }
 }
