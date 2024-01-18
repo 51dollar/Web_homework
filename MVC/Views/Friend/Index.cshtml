@@ -3,12 +3,23 @@
 	ViewData["Title"] = "Index";
 }
 
-<h1>List of friends</h1>
+<div class="container p-3">
+	<div class="row pt-4">
+		<div class="col-6">
+			<h2 class="text-primary">List of friends</h2>
+		</div>
+		<div class="col-6 text-end">
+			<a asp-controller="Friend" asp-action="Create" class="btn btn-primary">
+				<i class="bi bi-patch-plus"></i> &nbsp; Add a friend
+			</a>
+		</div>
+	</div>
+</div>
 
 <table class="table table-bordered table-striped" style="width:100%">
 	<thead>
 		<tr>
-			<th width ="40%">
+			<th width="40%">
 				Friends Name
 			</th>
 			<th width="60%">
@@ -21,10 +32,10 @@
 			{
 			<tr>
 				<td width="40%">
-					@obj.FriendName
+						@obj.FriendName
 				</td>
 				<td width="60%">
-					@obj.Place
+						@obj.Place
 				</td>
 			</tr>
 			}
