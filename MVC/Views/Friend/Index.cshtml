@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Friend>
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h1>List of friends</h1>
+
+<table class="table table-bordered table-striped" style="width:100%">
+	<thead>
+		<tr>
+			<th width ="40%">
+				Friends Name
+			</th>
+			<th width="60%">
+				Place
+			</th>
+		</tr>
+	<thead />
+	<tbody>
+			@foreach (var obj in Model)
+			{
+			<tr>
+				<td width="40%">
+					@obj.FriendName
+				</td>
+				<td width="60%">
+					@obj.Place
+				</td>
+			</tr>
+			}
+	</tbody>
+</table>
