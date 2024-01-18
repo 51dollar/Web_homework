@@ -18,5 +18,19 @@ namespace MVC.Controllers
             IEnumerable<Friend> objFrindsList = _db.friends.ToList();
             return View(objFrindsList);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Friend obj)
+        {
+            _db.friends.Add(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
