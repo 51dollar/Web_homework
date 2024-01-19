@@ -6,7 +6,7 @@ namespace MVC.Models
     public class Friend
     {
         [Key]
-        public int FriendID { get; set; }
+        public Guid FriendID { get; set; }
         [Required]
         [DisplayName("Name")]
         public string? FriendName { get; set; }

@@ -41,9 +41,9 @@ namespace MVC.Controllers
 			return View(obj);
 		}
 
-		public IActionResult Edit(int? id)
+		public IActionResult Edit(Guid? id)
 		{
-			if (id==null || id == 0)
+			if (id==null || id == Guid.Empty)
 			{
 				return NotFound();
 			}
@@ -75,9 +75,9 @@ namespace MVC.Controllers
 			return View(obj);
 		}
 
-		public IActionResult Delete(int? id)
+		public IActionResult Delete(Guid? id)
 		{
-			if (id==null || id == 0)
+			if (id==null || id == Guid.Empty)
 			{
 				return NotFound();
 			}
@@ -94,7 +94,7 @@ namespace MVC.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult DeletePost(int? id)
+		public IActionResult DeletePost(Guid? id)
 		{
 			var obj = _db.Friends.Find(id);
 			if (obj == null)
