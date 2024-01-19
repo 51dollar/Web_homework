@@ -1,21 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MVC.Data;
 using MVC.Models;
+using MVC.Repository;
 
 namespace MVC.Controllers
 {
 	public class FriendController : Controller
 	{
-		private readonly ApplicationDbContext _db;
+		private readonly IFriendRepository _friends;
 
-		public FriendController(ApplicationDbContext db)
+		public FriendController(IFriendRepository friends)
 		{
-			_db = db;
+			_friends = friends;
 		}
 
 		public IActionResult Index()
 		{
-			IEnumerable<Friend> objFrindsList = _db.Friends;
+			var objFrindsList = _friends.GetAllFriends();
 			return View(objFrindsList);
 		}
 
@@ -34,21 +34,21 @@ namespace MVC.Controllers
 			}
 			if (ModelState.IsValid)
 			{
-				_db.Friends.Add(obj);
-				_db.SaveChanges();
+				_friends.CreateFriend(obj);
+				_friends.SaveChanges();
 				return RedirectToAction("Index");
 			}
 			return View(obj);
 		}
 
-		public IActionResult Edit(Guid? id)
+		public IActionResult Edit(Guid id)
 		{
-			if (id==null || id == Guid.Empty)
+			if (id == Guid.Empty)
 			{
 				return NotFound();
 			}
 
-			var friendFromDb = _db.Friends.Find(id);
+			var friendFromDb = _friends.GetFriendByID(id);
 
 			if (friendFromDb == null)
 			{
@@ -68,21 +68,21 @@ namespace MVC.Controllers
 			}
 			if (ModelState.IsValid)
 			{
-				_db.Friends.Update(obj);
-				_db.SaveChanges();
+				_friends.UpdateFriend(obj);
+				_friends.SaveChanges();
 				return RedirectToAction("Index");
 			}
 			return View(obj);
 		}
 
-		public IActionResult Delete(Guid? id)
+		public IActionResult Delete(Guid id)
 		{
-			if (id==null || id == Guid.Empty)
+			if (id == Guid.Empty)
 			{
 				return NotFound();
 			}
 
-			var friendFromDb = _db.Friends.Find(id);
+			var friendFromDb = _friends.GetFriendByID(id);
 
 			if (friendFromDb == null)
 			{
@@ -94,17 +94,17 @@ namespace MVC.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult DeletePost(Guid? id)
+		public IActionResult DeletePost(Guid id)
 		{
-			var obj = _db.Friends.Find(id);
+			var obj = _friends.GetFriendByID(id);
 			if (obj == null)
 			{
 				return NotFound();
 			}
 
-			_db.Friends.Remove(obj);
-				_db.SaveChanges();
-				return RedirectToAction("Index");
+			_friends.DeleteFriend(obj);
+			_friends.SaveChanges();
+			return RedirectToAction("Index");
 		}
 	}
 }
