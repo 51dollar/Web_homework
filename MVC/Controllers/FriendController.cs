@@ -74,5 +74,37 @@ namespace MVC.Controllers
 			}
 			return View(obj);
 		}
+
+		public IActionResult Delete(int? id)
+		{
+			if (id==null || id == 0)
+			{
+				return NotFound();
+			}
+
+			var friendFromDb = _db.Friends.Find(id);
+
+			if (friendFromDb == null)
+			{
+				return NotFound();
+			}
+
+			return View(friendFromDb);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult DeletePost(int? id)
+		{
+			var obj = _db.Friends.Find(id);
+			if (obj == null)
+			{
+				return NotFound();
+			}
+
+			_db.Friends.Remove(obj);
+				_db.SaveChanges();
+				return RedirectToAction("Index");
+		}
 	}
 }
