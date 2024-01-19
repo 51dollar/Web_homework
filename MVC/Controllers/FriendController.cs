@@ -36,6 +36,7 @@ namespace MVC.Controllers
 			{
 				_friends.CreateFriend(obj);
 				_friends.SaveChanges();
+				TempData["success"] = "Friend created successfully";
 				return RedirectToAction("Index");
 			}
 			return View(obj);
@@ -70,6 +71,7 @@ namespace MVC.Controllers
 			{
 				_friends.UpdateFriend(obj);
 				_friends.SaveChanges();
+				TempData["success"] = "Friend update successfully";
 				return RedirectToAction("Index");
 			}
 			return View(obj);
@@ -104,6 +106,7 @@ namespace MVC.Controllers
 
 			_friends.DeleteFriend(obj);
 			_friends.SaveChanges();
+			TempData["success"] = "Kicked out from friends";
 			return RedirectToAction("Index");
 		}
 	}
