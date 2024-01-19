@@ -9,6 +9,6 @@ namespace MVC.Data
         {
         }
 
-        public DbSet<Friend> friends { get; set; }
+        public DbSet<Friend> Friends { get; set; }
     }
 }

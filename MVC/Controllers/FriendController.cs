@@ -15,7 +15,7 @@ namespace MVC.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Friend> objFrindsList = _db.friends.ToList();
+            IEnumerable<Friend> objFrindsList = _db.Friends.ToList();
             return View(objFrindsList);
         }
 
@@ -34,7 +34,7 @@ namespace MVC.Controllers
             }
             if (ModelState.IsValid)
             {
-                _db.friends.Add(obj);
+                _db.Friends.Add(obj);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
