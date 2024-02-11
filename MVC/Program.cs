@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using MVC.Data;
 using MVC.Repository;
+using MVC.Service;
 
 namespace MVC
 {
-	public class Program
+    public class Program
 	{
 		public static void Main(string[] args)
 		{
@@ -15,10 +16,14 @@ namespace MVC
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
                 builder.Configuration.GetConnectionString("DefaultConnection")
                 ));
+			builder.Services.AddScoped<IFriendRepository, FriendRepository>();
 
-			builder.Services.AddScoped<IFriendRepository, FriendReposiroty>();
+			if(builder.Environment.IsDevelopment())
+				builder.Services.AddScoped<IFriendService, FriendService>();
+			else
+				builder.Services.AddScoped<IFriendService, StubFriendService>();
 
-			builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+            builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
             var app = builder.Build();
 

@@ -1,21 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC.Models;
-using MVC.Repository;
+using MVC.Service;
 
 namespace MVC.Controllers
 {
-	public class FriendController : Controller
+    public class FriendController : Controller
 	{
-		private readonly IFriendRepository _friends;
+		private readonly IFriendService _friends;
 
-		public FriendController(IFriendRepository friends)
+		public FriendController(IFriendService friends)
 		{
 			_friends = friends;
 		}
 
 		public IActionResult Index()
 		{
-			var objFrindsList = _friends.GetAllFriends();
+			var objFrindsList = _friends.GetFriends();
 			return View(objFrindsList);
 		}
 
@@ -35,7 +35,6 @@ namespace MVC.Controllers
 			if (ModelState.IsValid)
 			{
 				_friends.CreateFriend(obj);
-				_friends.SaveChanges();
 				TempData["success"] = "Friend created successfully";
 				return RedirectToAction("Index");
 			}
@@ -70,7 +69,6 @@ namespace MVC.Controllers
 			if (ModelState.IsValid)
 			{
 				_friends.UpdateFriend(obj);
-				_friends.SaveChanges();
 				TempData["success"] = "Friend update successfully";
 				return RedirectToAction("Index");
 			}
@@ -105,7 +103,6 @@ namespace MVC.Controllers
 			}
 
 			_friends.DeleteFriend(obj);
-			_friends.SaveChanges();
 			TempData["success"] = "Kicked out from friends";
 			return RedirectToAction("Index");
 		}

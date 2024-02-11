@@ -1,16 +1,14 @@
 ﻿using MVC.Data;
 using MVC.Models;
-using System;
 
 namespace MVC.Repository
 {
-	public class FriendReposiroty : IFriendRepository
+    public class FriendRepository : IFriendRepository
 	{
 		private ApplicationDbContext _applicationDbContext;
-        public FriendReposiroty(ApplicationDbContext applicationDbContext)
+        public FriendRepository(ApplicationDbContext applicationDbContext)
         {
 			_applicationDbContext = applicationDbContext;
-
 		}
 
         public void CreateFriend(Friend friend)
