@@ -6,11 +6,15 @@ namespace MVC.Models
     public class Friend
     {
         [Key]
-        public Guid FriendID { get; set; }
-        [Required]
+        public required Guid FriendID { get; set; }
+
         [DisplayName("Name")]
+        [MaxLength(100)]
+        [Required(ErrorMessage = "Username not specified")]
         public string? FriendName { get; set; }
-		[Required]
-		public string? Place { get; set; }
+
+        [MaxLength(25)]
+        [Required(ErrorMessage = "user place not specified")]
+        public string? Place { get; set; }
     }
 }
